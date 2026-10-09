@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component} from '@angular/core';
+import { OrdreFabrication } from '../models/ordre-fabrication';
 
 @Component({
   imports: [],
@@ -7,5 +8,16 @@ import { Component, signal } from '@angular/core';
   templateUrl: './liste-ofs.html',
 })
 export class ListeOfs {
-  protected readonly titre = signal('Liste des Ofs');
+   protected readonly of: OrdreFabrication = {
+    numero: 123,
+    client: 'Client A',
+    type: 'OF1',
+    statut: { id: 1, libelle: 'En cours' },
+    reference: 'REF123',
+    quantite: 100,
+    reste: 50,
+    depotTable: 'Site A',
+    depotCoupe: 'Site B',
+  }
 }
+
