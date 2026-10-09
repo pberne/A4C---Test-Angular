@@ -1,0 +1,24 @@
+[{
+    "numero": 4487312,
+    "client": "HERMES SELLIER SAS (APM)",
+    "type": "OF1",
+    "statut": { "id": 2, "libelle": "20 - Mis en coupe" },
+    "reference": "088483CK89",
+    "quantite": 12,
+    "reste": 12,
+    "dateClotureSas": "2026-09-10",
+    "depotTable": "C62",
+    "depotCoupe": "C62"
+},
+{
+    "numero": 4487313,
+    "client": "HERMES SELLIER SAS (APM)",
+    "type": "OF1",
+    "statut": { "id": 12, "libelle": "90 - Terminé" },
+    "reference": "088483CK89",
+    "quantite": 12,
+    "reste": 12,
+    "dateClotureSas": "2026-09-10",
+    "depotTable": "C62",
+    "depotCoupe": "C62"
+}]

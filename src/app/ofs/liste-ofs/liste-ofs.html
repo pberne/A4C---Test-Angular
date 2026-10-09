@@ -1,10 +1,34 @@
 
-<div>
     <h2>Ordre de fabrication</h2>
-<p>Numéro: {{of.numero}}</p>
-    <p>Client: {{of.client}}</p>
-    <p>Type: {{of.type}}</p>
-    <p>Statut: {{of.statut.libelle}}</p>
-    <p>Référence: {{of.reference}}</p> 
-    <p>Date de clôture SAS: {{of.dateClotureSas}}</p>
-</div>
+    <h3> Nombre d'ordres: {{ ofService.totalOFs() }}</h3>
+
+    <table>
+    <thead>
+      <tr>
+        <th>Numéro</th>
+        <th>Client</th>
+        <th>Type</th>
+        <th>Statut</th>
+        <th>Référence</th>
+        <th>Quantité</th>
+        <th>Reste</th>
+      </tr>
+    </thead>
+    <tbody>
+    @for (ordre of ofListe(); track ordre.numero) {
+      <tr>
+        <td> {{ordre.numero}} </td>
+        <td> {{ordre.client}} </td>
+        <td> {{ordre.type}} </td>
+        <td> {{ordre.statut.libelle}} </td>
+        <td> {{ordre.reference}} </td>
+        <td> {{ordre.quantite}} </td>
+        <td> {{ordre.reste}} </td>
+      </tr>
+    }@empty {
+      <tr>
+        <td colspan="7">Aucun ordre de fabrication trouvé.</td>
+      </tr>
+    }
+    </tbody>
+    </table>
