@@ -1,36 +1,85 @@
+<div class="flex h-screen flex-col gap-2 p-3">
+  <app-titre-section [titre]="'Liste des Ofs'" />
 
-    <h1 class="text-primary text-center font-bold text-3xl">{{ titre() }}</h1>
-    <div class=" h-1.5 bg-primary rounded-lg"></div>
-    <button hlmBtn class="text-primary-foreground">Actualiser</button>
-    <h3> Nombre d'ordres: {{ ofService.totalOFs() }}</h3>
+  <!-- Barre d'actions -->
+  <div class="flex flex-wrap items-center gap-2">
+    <span class="text-sm text-muted-foreground">
+      {{ ofsAffiches().length }} OF(s) affiché(s) sur {{ ofService.totalOFs() }}
+    </span>
 
-    <table>
-    <thead>
-      <tr>
-        <th>Numéro</th>
-        <th>Client</th>
-        <th>Type</th>
-        <th>Statut</th>
-        <th>Référence</th>
-        <th>Quantité</th>
-        <th>Reste</th>
-      </tr>
-    </thead>
-    <tbody>
-    @for (ordre of ofListe(); track ordre.numero) {
-      <tr>
-        <td> {{ordre.numero}} </td>
-        <td> {{ordre.client}} </td>
-        <td> {{ordre.type}} </td>
-        <td> {{ordre.statut.libelle}} </td>
-        <td> {{ordre.reference}} </td>
-        <td> {{ordre.quantite}} </td>
-        <td> {{ordre.reste}} </td>
-      </tr>
-    }@empty {
-      <tr>
-        <td colspan="7">Aucun ordre de fabrication trouvé.</td>
-      </tr>
-    }
-    </tbody>
+    <label class="ml-auto flex items-center gap-2 text-sm">
+      Statut :
+      <select class="h-8 rounded-lg border border-input bg-background px-2" [(ngModel)]="statutFiltre">
+        <option [ngValue]="null">Tous</option>
+        @for (statut of statutsDisponibles(); track statut.id) {
+          <option [ngValue]="statut.id">{{ statut.libelle }}</option>
+        }
+      </select>
+    </label>
+
+    <button hlmBtn variant="outline" (click)="actualiser()" [disabled]="ofService.chargement()">Actualiser</button>
+    <button hlmBtn variant="outline" (click)="ouvrirFiche()" [disabled]="!ofSelectionne()">Fiche OF</button>
+    <button hlmBtn (click)="basculerAfficherTous()">
+      {{ afficherTous() ? 'OFs en cours seulement' : 'Charger tous les OFs' }}
+    </button>
+  </div>
+
+  @if (ofService.erreur(); as erreur) {
+    <p class="rounded-lg bg-destructive/10 p-2 text-destructive">{{ erreur }}</p>
+  }
+
+  <!-- Tableau : flex-1 = prend toute la hauteur restante, overflow-auto = défile, l'en-tête reste collé -->
+  <div hlmTableContainer class="flex-1 overflow-auto rounded-lg border">
+    <table hlmTable>
+      <thead hlmTHead>
+        <tr hlmTr>
+          @for (colonne of colonnes; track colonne.cle) {
+            <th hlmTh class="cursor-pointer select-none" [class.text-right]="colonne.numerique" (click)="trier(colonne.cle)">
+              {{ colonne.libelle }} {{ indicateurTri(colonne.cle) }}
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody hlmTBody>
+        @for (ordre of ofsAffiches(); track ordre.numero) {
+          <tr
+            hlmTr
+            class="cursor-default select-none"
+            [attr.data-state]="ordre.numero === numeroSelectionne() ? 'selected' : null"
+            (click)="selectionner(ordre)"
+            (dblclick)="ouvrirFiche(ordre.numero)"
+          >
+            <td hlmTd class="text-right">{{ ordre.numero }}</td>
+            <td hlmTd>{{ ordre.client }}</td>
+            <td hlmTd>{{ ordre.type }}</td>
+            <td hlmTd>{{ ordre.statut.libelle }}</td>
+            <td hlmTd>{{ ordre.reference }}</td>
+            <td hlmTd class="text-right">{{ ordre.quantite }}</td>
+            <td hlmTd class="text-right">{{ ordre.reste }}</td>
+          </tr>
+        } @empty {
+          <tr hlmTr>
+            <td hlmTd [attr.colspan]="colonnes.length" class="py-4 text-center text-muted-foreground">
+              {{ ofService.chargement() ? 'Chargement…' : 'Aucun ordre de fabrication trouvé.' }}
+            </td>
+          </tr>
+        }
+      </tbody>
     </table>
+  </div>
+
+  <!-- Commentaire de l'OF sélectionné -->
+  <div class="flex items-center gap-2">
+    <label for="commentaire" class="text-sm font-medium whitespace-nowrap">Commentaire :</label>
+    <input
+      hlmInput
+      id="commentaire"
+      [placeholder]="ofSelectionne() ? 'Saisir le commentaire de l\'OF' : 'Sélectionnez un OF'"
+      [disabled]="!ofSelectionne()"
+      [(ngModel)]="commentaireSaisi"
+      (keydown.enter)="validerCommentaire()"
+    />
+    <button hlmBtn (click)="validerCommentaire()" [disabled]="!commentaireModifie()">Valider</button>
+    <button hlmBtn variant="outline" (click)="annulerCommentaire()" [disabled]="!commentaireModifie()">✕</button>
+  </div>
+</div>

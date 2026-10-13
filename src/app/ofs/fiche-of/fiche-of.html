@@ -1,0 +1,129 @@
+<div class="flex flex-col gap-3 p-3">
+  <!-- En-tête : retour, titre, copie du numéro -->
+  <div class="flex items-center gap-2">
+    <a hlmBtn variant="outline" size="sm" routerLink="/ofs">← Liste des Ofs</a>
+    <div class="flex-1">
+      <app-titre-section [titre]="'Fiche OF N°' + numero()" />
+    </div>
+    <button hlmBtn variant="outline" size="sm" (click)="copierNumero()">
+      {{ numeroCopie() ? 'Copié ✓' : 'Copier n° OF' }}
+    </button>
+  </div>
+
+  @if (ordre(); as ordre) {
+    <!-- Informations de l'OF (lecture seule) -->
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(12rem,1fr))] gap-3">
+      <div class="flex flex-col gap-1">
+        <label hlmLabel for="dateClotureSas">Date clôture SAS</label>
+        <input hlmInput id="dateClotureSas" readonly [value]="(ordre.dateClotureSas | date: 'dd/MM/yyyy') ?? ''" />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label hlmLabel for="depotCoupe">Dépôt coupe</label>
+        <input hlmInput id="depotCoupe" readonly [value]="ordre.depotCoupe" />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label hlmLabel for="depotTable">Dépôt table</label>
+        <input hlmInput id="depotTable" readonly [value]="ordre.depotTable" />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label hlmLabel for="statut">Statut OF</label>
+        <input hlmInput id="statut" readonly [value]="ordre.statut.libelle" />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label hlmLabel for="type">Type OF</label>
+        <input hlmInput id="type" readonly [value]="ordre.type" />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label hlmLabel for="taille">Taille OF</label>
+        <input hlmInput id="taille" readonly class="text-right" [value]="ordre.quantite" />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label hlmLabel for="nbLivre">Nb livré</label>
+        <input hlmInput id="nbLivre" readonly class="text-right" [value]="nbLivre()" />
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label hlmLabel for="commentaireOf">Commentaire OF</label>
+      <textarea hlmInput id="commentaireOf" readonly class="h-20 resize-none" [value]="ordre.commentaire ?? ''"></textarea>
+    </div>
+
+    <!-- Onglets -->
+    <div hlmTabs tab="bdc">
+      <div hlmTabsList class="h-auto justify-start gap-0.5 rounded-none bg-transparent p-0">
+        @for (onglet of onglets; track onglet.id) {
+          <button
+            [hlmTabsTrigger]="onglet.id"
+            class="flex-none rounded-b-none bg-primary px-4 py-1 font-bold text-primary-foreground data-active:bg-background data-active:text-foreground"
+          >
+            {{ onglet.libelle }}
+          </button>
+        }
+      </div>
+
+      <div hlmTabsContent="bdc" class="flex flex-col gap-2 pt-2">
+        <app-titre-section titre="Bon de coupe" petit />
+
+        <div hlmTableContainer class="rounded-lg border">
+          <table hlmTable>
+            <thead hlmTHead>
+              <tr hlmTr>
+                <th hlmTh class="text-right">ID</th>
+                <th hlmTh class="text-right">N°</th>
+                <th hlmTh>Ref Client</th>
+                <th hlmTh>Artisan</th>
+                <th hlmTh>Statut</th>
+                <th hlmTh>Date création</th>
+                <th hlmTh>Date clôture</th>
+                <th hlmTh class="text-right">Quantité OF</th>
+                <th hlmTh class="text-right">Quantité Recoupe</th>
+                <th hlmTh>Commentaire</th>
+              </tr>
+            </thead>
+            <tbody hlmTBody>
+              @for (bon of bonsCoupe(); track bon.id) {
+                <tr hlmTr>
+                  <td hlmTd class="text-right">{{ bon.id }}</td>
+                  <td hlmTd class="text-right">{{ bon.numero }}</td>
+                  <td hlmTd>{{ bon.refClient }}</td>
+                  <td hlmTd>{{ bon.artisan }}</td>
+                  <td hlmTd>{{ bon.statut }}</td>
+                  <td hlmTd>{{ bon.dateCreation | date: 'dd/MM/yyyy' }}</td>
+                  <td hlmTd>{{ bon.dateCloture | date: 'dd/MM/yyyy' }}</td>
+                  <td hlmTd class="text-right">{{ bon.quantiteOf }}</td>
+                  <td hlmTd class="text-right">{{ bon.quantiteRecoupe }}</td>
+                  <td hlmTd>{{ bon.commentaire }}</td>
+                </tr>
+              } @empty {
+                <tr hlmTr>
+                  <td hlmTd colspan="10" class="py-4 text-center text-muted-foreground">Aucun bon de coupe pour cet OF.</td>
+                </tr>
+              }
+            </tbody>
+            <tfoot hlmTFoot>
+              <tr hlmTr>
+                <td hlmTd colspan="7" class="font-bold">Somme</td>
+                <td hlmTd class="text-right font-bold">{{ totalQuantiteOf() }}</td>
+                <td hlmTd class="text-right font-bold">{{ totalQuantiteRecoupe() }}</td>
+                <td hlmTd></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      @for (onglet of onglets.slice(1); track onglet.id) {
+        <div [hlmTabsContent]="onglet.id" class="py-8 text-center text-muted-foreground">
+          Onglet « {{ onglet.libelle }} » : à venir.
+        </div>
+      }
+    </div>
+  } @else if (ofService.chargement()) {
+    <p class="py-8 text-center text-muted-foreground">Chargement…</p>
+  } @else {
+    <p class="py-8 text-center text-muted-foreground">
+      L'OF n°{{ numero() }} est introuvable.
+      <a routerLink="/ofs" class="text-primary underline">Retour à la liste</a>
+    </p>
+  }
+</div>

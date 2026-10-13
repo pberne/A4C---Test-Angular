@@ -1,59 +1,62 @@
-# A4CTestAngular
+# A4C – Test Angular
 
-Ce projet a pour but de comparer les technologies React et Angular. Ici nous verrons uniquement la partie sur Angular, la partie sur React est réalisée par un autre collaborateur.
+Évaluation d'Angular pour remplacer, à terme, des écrans de l'ERP WinDev. Le test reproduit deux fenêtres réelles, la **liste des OF** et la **fiche OF**, avec des données simulées.
 
-## Development server
+## En bref : Angular est le meilleur choix pour notre ERP
 
-To start a local development server, run:
+Un ERP, ce sont **des dizaines d'écrans sur le même modèle** (listes, fiches, onglets), **maintenus pendant des années**. Ce qui compte, c'est la **cohérence** et la **maintenabilité**, pas la vitesse de démarrage. C'est le point fort d'Angular.
+
+| | Angular | React |
+|---|---|---|
+| Nature | **Framework complet** : routage, HTTP, formulaires inclus | Bibliothèque d'affichage, le reste est à choisir et assembler |
+| Organisation du code | **Imposée** : tous les écrans se ressemblent | Libre : dépend de la discipline de l'équipe |
+| Détection des erreurs | **TypeScript obligatoire**, HTML vérifié aussi | Optionnelle |
+| Mises à jour | **Cadencées** (une version tous les 6 mois, maintenue 18 mois), migrations automatiques | Au rythme de chaque bibliothèque |
+| Pour un développeur WinDev | **Notions familières** (fenêtre, procédure, structure) | Approche plus éloignée |
+| Prise en main | Plus longue (quelques jours) | Plus rapide (quelques heures) |
+| Choix de composants d'interface | Plus restreint | Très large |
+
+**Ce qu'il faut prévoir :** une formation de quelques jours, le choix d'une grille de données solide (AG Grid ou ng-zorro-antd, gratuits), et l'autorisation des outils npm sur les postes de développement.
+
+## Lancer le projet
+
+Prérequis : Node.js LTS et Angular CLI (`npm install -g @angular/cli`).
 
 ```bash
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Ouvrir ensuite <http://localhost:4200>.
 
-## Code scaffolding
+> Sur les postes A4C, PowerShell bloque `npm` et `ng`. Utilisez l'**Invite de commandes** (cmd) comme terminal, ou tapez `npm.cmd` / `ng.cmd`.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Ce que fait l'application
 
-```bash
-ng generate component component-name
+- **Liste des OF** (`/ofs`) : tri par colonne, filtre par statut, « Charger tous les OFs », sélection d'une ligne, modification du commentaire.
+- **Fiche OF** (`/ofs/:numero`) : ouverte par double-clic ou par le bouton « Fiche OF ». Elle affiche les informations de l'OF, une copie du numéro et des onglets. L'onglet Bdc contient le tableau des bons de coupe avec sa ligne « Somme ».
+- **Données** : fichiers JSON dans `public/data/`, lus comme une vraie API. Pour brancher le serveur, seuls `src/app/api.config.ts` et les services changent.
+
+## Organisation du code
+
+```text
+src/app/
+├── app.routes.ts      les URL et l'écran affiché pour chacune
+├── shared/            composants réutilisables
+└── ofs/
+    ├── models/        structures de données (OF, statut, bon de coupe)
+    ├── services/      accès aux données
+    ├── liste-ofs/     fenêtre 1
+    └── fiche-of/      fenêtre 2
+libs/ui/               composants d'interface spartan (bouton, table, onglets…)
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+| WinDev | Angular |
+|---|---|
+| Fenêtre | Composant |
+| Collection de procédures | Service |
+| Structure | Interface TypeScript |
+| `Ouvre(FEN_Fiche, nOF)` | `router.navigate(['/ofs', numero])` |
+| Rafraîchir l'affichage | Automatique grâce aux signals |
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+**Technologies :** Angular 22 (signals, composants *standalone*), Tailwind CSS, spartan/ui (licence MIT). PrimeNG a été écarté, car ses versions récentes sont sous licence payante.

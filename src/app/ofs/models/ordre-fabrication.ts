@@ -2,7 +2,6 @@ import {OrdreFabricationStatut} from './ordre-fabrication-statut';
 export type TypeOrdreFabrication = 'OF1' | 'PROTOTYPE' | 'PRE SERIE' |'DEV';
 
 export interface OrdreFabrication {
-sitedetable: any;
     numero: number;
     client: string;
     type: TypeOrdreFabrication;

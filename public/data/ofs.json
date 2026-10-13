@@ -1,24 +1,19 @@
-[{
-    "numero": 4487312,
-    "client": "HERMES SELLIER SAS (APM)",
-    "type": "OF1",
-    "statut": { "id": 2, "libelle": "20 - Mis en coupe" },
-    "reference": "088483CK89",
-    "quantite": 12,
-    "reste": 12,
-    "dateClotureSas": "2026-09-10",
-    "depotTable": "C62",
-    "depotCoupe": "C62"
-},
-{
-    "numero": 4487313,
-    "client": "HERMES SELLIER SAS (APM)",
-    "type": "OF1",
-    "statut": { "id": 12, "libelle": "90 - Terminé" },
-    "reference": "088483CK89",
-    "quantite": 12,
-    "reste": 12,
-    "dateClotureSas": "2026-09-10",
-    "depotTable": "C62",
-    "depotCoupe": "C62"
-}]
+[
+  { "numero": 69658, "client": "A4C BE", "type": "DEV", "statut": { "id": 1, "libelle": "10 - Saisie / Importé" }, "reference": "DEV_SERRE TETE CULERON ESSENTI", "quantite": 1, "reste": 1, "depotTable": "C62 A4C", "depotCoupe": "C62 A4C", "commentaire": "Développement ligne Essentiel" },
+  { "numero": 4487316, "client": "HERMES SELLIER SAS (APM)", "type": "OF1", "statut": { "id": 2, "libelle": "20 - Mis en coupe" }, "reference": "088483CKX3", "quantite": 12, "reste": 12, "depotTable": "C62 A4C", "depotCoupe": "C62 A4C" },
+  { "numero": 4487314, "client": "HERMES SELLIER SAS (APM)", "type": "OF1", "statut": { "id": 2, "libelle": "20 - Mis en coupe" }, "reference": "088483CKX3", "quantite": 12, "reste": 12, "depotTable": "C62 A4C", "depotCoupe": "C62 A4C" },
+  { "numero": 4487312, "client": "HERMES SELLIER SAS (APM)", "type": "OF1", "statut": { "id": 2, "libelle": "20 - Mis en coupe" }, "reference": "088483CK89", "quantite": 12, "reste": 12, "depotTable": "C62 A4C", "depotCoupe": "C62 A4C" },
+  { "numero": 4487310, "client": "HERMES SELLIER SAS (APM)", "type": "OF1", "statut": { "id": 2, "libelle": "20 - Mis en coupe" }, "reference": "088483CK89", "quantite": 12, "reste": 12, "depotTable": "C62 A4C", "depotCoupe": "C62 A4C" },
+  { "numero": 4487300, "client": "HERMES SELLIER SAS (APM)", "type": "OF1", "statut": { "id": 2, "libelle": "20 - Mis en coupe" }, "reference": "088139CK7P", "quantite": 12, "reste": 12, "depotTable": "C62 A4C", "depotCoupe": "C62 A4C" },
+  { "numero": 4487308, "client": "HERMES SELLIER SAS (APM)", "type": "OF1", "statut": { "id": 2, "libelle": "20 - Mis en coupe" }, "reference": "088187CKAC", "quantite": 12, "reste": 12, "depotTable": "C62 A4C", "depotCoupe": "C62 A4C" },
+  { "numero": 4487306, "client": "HERMES SELLIER SAS (APM)", "type": "OF1", "statut": { "id": 2, "libelle": "20 - Mis en coupe" }, "reference": "088187CKAC", "quantite": 12, "reste": 12, "depotTable": "C62 A4C", "depotCoupe": "C62 A4C" },
+  { "numero": 4487295, "client": "HERMES SELLIER SAS (APM)", "type": "OF1", "statut": { "id": 2, "libelle": "20 - Mis en coupe" }, "reference": "082977CK90", "quantite": 5, "reste": 5, "depotTable": "C62 A4C", "depotCoupe": "C62 A4C", "commentaire": "Petite série, priorité haute" },
+  { "numero": 4487293, "client": "HERMES SELLIER SAS (APM)", "type": "OF1", "statut": { "id": 2, "libelle": "20 - Mis en coupe" }, "reference": "082977CK90", "quantite": 12, "reste": 12, "depotTable": "C62 A4C", "depotCoupe": "C62 A4C" },
+  { "numero": 4487297, "client": "HERMES SELLIER SAS (APM)", "type": "OF1", "statut": { "id": 2, "libelle": "20 - Mis en coupe" }, "reference": "084931CK05", "quantite": 12, "reste": 12, "depotTable": "C62 A4C", "depotCoupe": "C62 A4C" },
+  { "numero": 4487279, "client": "HERMES SELLIER SAS (APM)", "type": "OF1", "statut": { "id": 2, "libelle": "20 - Mis en coupe" }, "reference": "082060CK85", "quantite": 3, "reste": 3, "depotTable": "C62 A4C", "depotCoupe": "C62 A4C" },
+  { "numero": 4487274, "client": "HERMES SELLIER SAS (APM)", "type": "PROTOTYPE", "statut": { "id": 1, "libelle": "10 - Saisie / Importé" }, "reference": "041054CK8U", "quantite": 1, "reste": 1, "depotTable": "C62 A4C", "depotCoupe": "C62 A4C" },
+  { "numero": 4487268, "client": "HERMES SELLIER SAS (APM)", "type": "OF1", "statut": { "id": 2, "libelle": "20 - Mis en coupe" }, "reference": "039759CK7U", "quantite": 12, "reste": 12, "depotTable": "C62 A4C", "depotCoupe": "C62 A4C" },
+  { "numero": 4487201, "client": "HERMES SELLIER SAS (APM)", "type": "OF1", "statut": { "id": 12, "libelle": "90 - Terminé" }, "reference": "088483CK89", "quantite": 12, "reste": 0, "dateClotureSas": "2026-09-10", "depotTable": "C62 A4C", "depotCoupe": "C62 A4C" },
+  { "numero": 4487188, "client": "HERMES SELLIER SAS (APM)", "type": "PRE SERIE", "statut": { "id": 12, "libelle": "90 - Terminé" }, "reference": "082977CK89", "quantite": 6, "reste": 0, "dateClotureSas": "2026-09-02", "depotTable": "C62 A4C", "depotCoupe": "C62 A4C", "commentaire": "Livré en deux fois" },
+  { "numero": 4487150, "client": "HERMES SELLIER SAS (APM)", "type": "OF1", "statut": { "id": 12, "libelle": "90 - Terminé" }, "reference": "041054CK4D", "quantite": 12, "reste": 0, "dateClotureSas": "2026-08-27", "depotTable": "C62 A4C", "depotCoupe": "C62 A4C" }
+]
